@@ -2,6 +2,7 @@ import { NgFor, NgIf } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { environment } from '../../environments/environment';
 export interface winners {
   firstname: string;
   lastname: string;
@@ -22,6 +23,7 @@ export class RaffledrawComponent {
   dataSource: winners[] = [];
   showTable: boolean = false;
   data:any;
+  prizes:any;
   
   countdown: number = 10;
   hasDrawn: boolean = false;
@@ -39,7 +41,27 @@ export class RaffledrawComponent {
       this.countdown = 0;
       this.showTable = false;
     }
+    this.getPrized();
   }
+
+  getPrized()
+  {
+    this.exampleDatabase.getPrizedType().subscribe({
+      next: (data: any) => {
+
+        if (Array.isArray(data)) {
+          console.log(data);
+            this.prizes=data;
+        } else {
+          console.error('API did not return an array:', data);
+        }
+      },
+      error: (error) => {
+        console.error('There was an error!', error);
+      }
+    });
+  }
+
 
   draw(): void {
    
@@ -85,13 +107,20 @@ export class RaffledrawComponent {
 }
 
 export class ExampleHttpDatabase {
+  private baseUrl =  `${environment.apiUrl}`;
   constructor(private _httpClient: HttpClient) {}
 
   getwinners(data: object) {
-    return this._httpClient.post('https://172.16.0.37/api/Raffle/conduct',data);
+    return this._httpClient.post(`${this.baseUrl}/Raffle/conduct`,data);
   }
 
   reset() {
-    return this._httpClient.get('https://172.16.0.37/api/Raffle/reset');
+    return this._httpClient.get(`${this.baseUrl}/Raffle/reset`);
   }
+
+  getPrizedType()
+  {
+    return this._httpClient.get(`${this.baseUrl}/PrizeType/prizetypes`);
+  }
+
 }

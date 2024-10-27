@@ -1,11 +1,38 @@
-<div class="container">
+<style>
+  .pacifico-regular {
+  font-family: "Pacifico", cursive;
+  font-weight: 400;
+  font-style: normal;
+  
+}
+.playfair-display {
+  font-family: "Playfair Display", serif;
+  font-optical-sizing: auto;
+  font-weight: 400px;
+  font-style: normal;
+}
+.table {
+  max-height: 300px; overflow-y: auto;
+}
+.back-img {
+    height: 100vh;
+    background-image: url("cleaned_ticket.png");
+    background-size: contain;
+    background-position: left;
+  }
+
+</style>
+
     <div class="row">
-      <div class="col-lg-6"></div>
-      <div class="col-lg-6">
+      <div class="col-lg-6 back-img">
+
+      </div>
+      <div class="col-lg-6" style="background-color: #c89a8e; padding-left: 20px;padding-right: 20px;">
         <br>
         <div class="col-lg-12">
-          <h1 class="text-center">RAFFLE DRAW</h1>
+          <h1 class="text-center">PARTICIPANTS REGISTRATION</h1>
         </div>
+        <div *ngIf="hasError"> <p>{{errormessage}}</p></div>
         <div *ngIf="!registrationSuccess"> <div class="mb-3 row">
             <label for="inputPassword" class="col-sm-2 col-form-label">Firstname</label>
             <div class="col-sm-10">
@@ -23,10 +50,11 @@
           </div>
           <div class="d-grid gap-2">
             <button class="btn btn-primary" type="button" (click)="register()">Register</button>
+            <button class="btn btn-primary" type="button" (click)="gotolist()">List of Participants</button>
           </div>
         </div>
         <div *ngIf="registrationSuccess"> <p>Registration Successful!</p>
+          <button class="btn btn-primary" type="button" (click)="backtoregistation()">Back To Registration</button>
         </div>
       </div>
     </div>
-  </div>

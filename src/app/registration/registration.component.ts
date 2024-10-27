@@ -2,6 +2,8 @@ import { NgIf } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { environment } from '../../environments/environment';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-registration',
@@ -11,15 +13,26 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './registration.component.css'
 })
 export class RegistrationComponent {
-
+  
   exampleDatabase!: ExampleHttpDatabase;
   firstName: string = '';
   lastName: string   = '';
+  errormessage:string='';
+  hasError:boolean=false;
   registrationSuccess: boolean = false;
-  constructor(private _httpClient: HttpClient) {
+  constructor(private _httpClient: HttpClient,private router: Router) {
     this.exampleDatabase = new ExampleHttpDatabase(this._httpClient);
   }
 
+  backtoregistation():void
+  {
+    this.registrationSuccess = false;
+  }
+
+  gotolist():void
+  {
+    this.router.navigate(['/participants']); 
+  }
   
   register():void{
     const participantData = {
@@ -32,10 +45,21 @@ export class RegistrationComponent {
       next: (data: any) => {
         console.log('API Response:', data);
         this.registrationSuccess = true;
+        this.hasError=false;
         this.clearFields();
       },
       error: (error) => {
-        console.error('There was an error!', error);
+          // Handle JSON error responses
+          if (error.error && typeof error.error === 'object' && error.error.message) {
+            this.errormessage = error.error.message;  // Set error message from API
+            console.error('Error Response:', error.error.message);
+          } else {
+            this.errormessage = 'An unexpected error occurred.';
+            console.log('Error:', error);
+          }
+          this.registrationSuccess = false;
+          this.hasError=true;
+          this.clearFields();
       }
     });
   }
@@ -48,11 +72,11 @@ export class RegistrationComponent {
 }
 
 export class ExampleHttpDatabase {
+  private baseUrl =  `${environment.apiUrl}`;
   constructor(private _httpClient: HttpClient) {}
-
   register(data: object) {
-    return this._httpClient.post('https://172.16.0.37/api/Raffle/participant',data);
+    return this._httpClient.post(`${this.baseUrl}/Raffle/participant`, data);
   }
-
+ 
   
 }
