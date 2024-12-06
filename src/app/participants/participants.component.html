@@ -38,12 +38,25 @@
                   <tr>
                     <th scope="col">#</th>
                     <th scope="col">Name</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Action</th>
                   </tr>
                 </thead>
                 <tbody>
                     <tr *ngFor="let participants of data ; let i = index">
                         <th>{{ i + 1 }}</th>
                         <td style="text-transform: uppercase;">{{ participants.lastName }}, {{ participants.firstName }}</td>
+                        <td>
+                          <span 
+                          class="badge" 
+                          [ngClass]="participants.status === 1 ? 'bg-success' : 'bg-danger'">
+                          {{ participants.status === 1 ? 'Activate' : 'Deactivate' }}
+                        </span>
+                        </td>
+                        <td>
+                          <button *ngIf="participants.status === 0" class="btn btn-primary" (click)="activate(participants.id)">Activate</button>
+                          <button *ngIf="participants.status === 1" class="btn btn-danger" (click)="deactivate(participants.id)">Deactivate</button>
+                        </td>
                       </tr>
                 </tbody>
               </table>

@@ -16,7 +16,8 @@ export class RegistrationComponent {
   
   exampleDatabase!: ExampleHttpDatabase;
   firstName: string = '';
-  lastName: string   = '';
+  lastName: string = '';
+  designation:string='';
   errormessage:string='';
   hasError:boolean=false;
   registrationSuccess: boolean = false;
@@ -37,7 +38,8 @@ export class RegistrationComponent {
   register():void{
     const participantData = {
       firstName: this.firstName,
-      lastName: this.lastName
+      lastName: this.lastName,
+      designation:this.designation
     };
 
     console.log(participantData);
@@ -67,6 +69,7 @@ export class RegistrationComponent {
   clearFields(): void {
     this.firstName = '';
     this.lastName = '';
+    this.designation='';
   }
 
 }
