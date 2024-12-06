@@ -1,79 +1,120 @@
 <style>
-    .pacifico-regular {
-    font-family: "Pacifico", cursive;
-    font-weight: 400;
-    font-style: normal;
-    
-  }
-  .playfair-display {
-    font-family: "Playfair Display", serif;
-    font-optical-sizing: auto;
-    font-weight: 400px;
-    font-style: normal;
-  }
-  .table {
-    max-height: 300px; overflow-y: auto;
-  }
-  .back-img {
-      height: 100vh;
-      background-image: url("cleaned_ticket.png");
-      background-size: contain;
-      background-position: left;
-    }
+  .pacifico-regular {
+  font-family: "Pacifico", cursive;
+  font-weight: 400;
+  font-style: normal;
   
-  </style>
+}
+.playfair-display {
+  font-family: "Playfair Display", serif;
+  font-optical-sizing: auto;
+  font-weight: 400px;
+  font-style: normal;
+}
+.table {
+  max-height: 300px; overflow-y: auto;
+}
+.full-height {
+    height: 100vh; /* Full viewport height */
+    display: flex;
+    flex-direction: column;
+}
+        .halloween-card {
+            background-color: white; /* Halloween color */
+            border: 2px solid #ffcc00; /* Black border */
+        }
+        .card-title {
+            color: #ff6600; /* Orange color for title */
+        }
+        .countdown
+        {
+          color: #ff6600; 
+        }
+        .halloween-header {
+            background-color: #ff6600; /* Orange header */
+            padding: 20px;
+            text-align: center;
+            border-radius: 0.5rem;
+        }
+        .winner-list {
+            margin-top: 20px;
+        }
+        .list-group-item {
+            background-color: #333; /* Darker item background */
+            border: none;
+            position: relative;
+            color: white;
+            font-size: 25px;
+            padding-left: 50px;
+        }
+        .list-group-item::before {
+            content: '🎃'; /* Halloween icon */
+            position: absolute;
+            left: 10px;
+            font-size: 20px;
+            
+        }
+</style>
   
     <div class="row">
-      <div class="col-lg-6 back-img" ></div>
-      <div class="col-lg-6" style="background-color: #c89a8e; padding-left: 20px;padding-right: 20px;">
-        <br>
-        <div class="col-lg-12">
-          <h1 class="text-center">PARTICIPANTS</h1>
-        </div>
-        <button class="btn btn-primary" type="button" (click)="backtoregistation()">Back To Registration</button>
-        <br>
-        <br>
-        <div style="max-height: 550px; overflow-y: auto;">
-            <table class="table">
-                <thead>
-                  <tr>
-                    <th scope="col">Batch Numebr</th>
-                    <th scope="col">Description</th>
-                    <th scope="col">Action</th>
-                  </tr>
-                </thead>
-                <tbody>
-                    <tr *ngFor="let participants of data">
-                        <th>{{participants.batchNumber}}</th>
-                        <td>{{ participants.batchDescription }}</td>
-                        <td>
-                            <button class="btn btn-primary" type="button" (click)="viewbatch(participants.batchNumber)">View</button>
-                        </td>
-                      </tr>
-                </tbody>
-              </table>
-        </div>
+      
+      <div class="col-lg-6" style=" padding-left: 20px;padding-right: 20px;">
+        <div class="container mt-3">
+          <div class="card halloween-card">
+              <div class="card-header text-center">
+                  <h3 class="card-title">🎃 Hallo Win WINNERS 🎃</h3>
+              </div>
+              <div class="card-body">
+                <div style="max-height: 550px; overflow-y: auto;">
+                  <table class="table">
+                      <thead>
+                        <tr>
+                          <th scope="col">Batch Number</th>
+                          <th scope="col">Description</th>
+                          <th scope="col">Action</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                          <tr *ngFor="let participants of data">
+                              <th>{{participants.batchNumber}}</th>
+                              <td>{{ participants.batchDescription }}</td>
+                              <td>
+                                  <button class="btn btn-primary" type="button" (click)="viewbatch(participants.batchNumber)">View</button>
+                              </td>
+                            </tr>
+                      </tbody>
+                    </table>
+              </div>
+      
+              <div style="max-height: 550px; overflow-y: auto;">
+                  <table class="table">
+                      <thead>
+                        <tr>
+                          <th scope="col">#</th>
+                          <th scope="col">Batch Number</th>
+                          <th scope="col">Name</th>
+                          <th scope="col">Prize</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                          <tr *ngFor="let data of batchdata ; let i = index">
+                              <th>{{ i + 1 }}</th>
+                              <td>{{ data.batchNumber }}</td>
+                              <td>{{ data.winnerName }}</td>
+                              <td>{{ data.prizeTypeDescription }}</td>
+                            </tr>
+                      </tbody>
+                    </table>
+              </div>
+              </div>
+              <div class="card-footer">
+               
+               
+              </div>
+          </div>
+      </div>
 
-        <div style="max-height: 550px; overflow-y: auto;">
-            <table class="table">
-                <thead>
-                  <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Batch Number</th>
-                    <th scope="col">Name</th>
-                    <th scope="col">Prize</th>
-                  </tr>
-                </thead>
-                <tbody>
-                    <tr *ngFor="let data of batchdata ; let i = index">
-                        <th>{{ i + 1 }}</th>
-                        <td>{{ data.batchNumber }}</td>
-                        <td>{{ data.winnerName }}</td>
-                        <td>{{ data.prizeTypeDescription }}</td>
-                      </tr>
-                </tbody>
-              </table>
-        </div>
+        
       
       </div>
     </div>

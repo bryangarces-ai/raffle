@@ -6,6 +6,7 @@ import { environment } from '../../environments/environment';
 export interface winners {
   firstname: string;
   lastname: string;
+  department: string;
 }
 
 @Component({
