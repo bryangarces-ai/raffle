@@ -1,8 +1,9 @@
 import { NgClass, NgFor, NgIf } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-import { Component } from '@angular/core';
+import { ChangeDetectorRef, Component } from '@angular/core';
 import { environment } from '../../environments/environment';
 import { Router } from '@angular/router';
+
 import Swal from 'sweetalert2';
 
 @Component({
@@ -16,7 +17,7 @@ export class ParticipantsComponent {
   data:any;
   exampleDatabase!: ExampleHttpDatabase;
 
-  constructor(private _httpClient: HttpClient,private router: Router) {
+  constructor(private _httpClient: HttpClient,private router: Router, private cdr: ChangeDetectorRef) {
     this.exampleDatabase = new ExampleHttpDatabase(this._httpClient);
   }
 
@@ -32,9 +33,10 @@ export class ParticipantsComponent {
         console.log('API Response:', data);
 
         if (Array.isArray(data)) {
-            console.log(data);
+            // console.log(data);
             this.data=data;
-            console.log(this.data);
+            this.cdr.detectChanges();
+            // console.log(this.data);
         } else {
           console.error('API did not return an array:', data);
         }

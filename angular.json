@@ -36,7 +36,8 @@
             "prerender": true,
             "ssr": {
               "entry": "server.ts"
-            }
+            },
+            "outputHashing": "all"
           },
           "configurations": {
             "production": {
@@ -53,7 +54,7 @@
                 }
               ],
               "outputHashing": "all",
-              "baseHref": "/buntiscongress/"
+              "baseHref": "/RAFFLENUTRITION/"
             },
             "development": {
               "optimization": false,

@@ -16,9 +16,9 @@
   }
   .back-img {
       height: 100vh;
-      background-image: url("cleaned_ticket.png");
+      background-image: url("backgroundNutrition.png");
       background-size: contain;
-      background-position: left;
+      background-position: right;
     }
   
   </style>
@@ -50,7 +50,7 @@
                           <span 
                           class="badge" 
                           [ngClass]="participants.status === 1 ? 'bg-success' : 'bg-danger'">
-                          {{ participants.status === 1 ? 'Activate' : 'Deactivate' }}
+                          {{ participants.status === 1 ? 'Active' : 'Deactivated' }}
                         </span>
                         </td>
                         <td>
