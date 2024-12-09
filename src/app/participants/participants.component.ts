@@ -5,16 +5,21 @@ import { environment } from '../../environments/environment';
 import { Router } from '@angular/router';
 
 import Swal from 'sweetalert2';
+import { FormsModule } from '@angular/forms';
+import { Participant } from '../core/participants';
 
 @Component({
   selector: 'app-participants',
   standalone: true,
-  imports: [NgFor, NgClass, NgIf],
+  imports: [NgFor, NgClass, NgIf,FormsModule],
   templateUrl: './participants.component.html',
   styleUrl: './participants.component.css',
 })
 export class ParticipantsComponent {
   data: any;
+  searchText: string = '';
+  
+
   exampleDatabase!: ExampleHttpDatabase;
 
   constructor(
@@ -48,6 +53,16 @@ export class ParticipantsComponent {
       },
     });
   }
+
+  filteredParticipants() {
+    return this.data.filter((participant:Participant) =>
+      `${participant.firstName} ${participant.lastName}`
+        .toLowerCase()
+        .includes(this.searchText.toLowerCase())
+    );
+  }
+ 
+  
 
   backtoregistation(): void {
     this.router.navigate(['/registration']);

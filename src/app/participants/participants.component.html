@@ -30,8 +30,20 @@
         <div class="col-lg-12">
           <h1 class="text-center">PARTICIPANTS</h1>
         </div>
+        <div class="row">
+      <div class="col-lg-6">
         <button class="btn btn-primary" type="button" (click)="backtoregistation()">Back To Registration</button>
-        <br>
+      </div>        
+      <div class="col-lg-6">
+        <input
+        type="text"
+        class="form-control mb-3"
+        placeholder="Search by name"
+        [(ngModel)]="searchText"
+      />
+      </div>
+    </div>
+      
         <div style="max-height: 550px; overflow-y: auto;">
             <table class="table">
                 <thead>
@@ -43,7 +55,7 @@
                   </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let participants of data ; let i = index">
+                    <tr *ngFor="let participants of filteredParticipants() ; let i = index">
                         <th>{{ i + 1 }}</th>
                         <td style="text-transform: uppercase;">{{ participants.lastName }}, {{ participants.firstName }}</td>
                         <td>
